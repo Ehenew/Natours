@@ -28,6 +28,8 @@ const globalErrorHandler = require('./controllers/errorController');
 // Start express app
 const app = express();
 
+app.enable('trust proxy');
+
 // Setting pug as a view engine for server-side rendering
 app.set('view engine', 'pug');
 
@@ -54,6 +56,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Set security HTTP headers
 // Commented out to fix the issue with leaflet library
 // app.use(helmet());
+
+// Configure CSP in helmet
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", 'https://apis.google.com'],
+        connectSrc: ["'self'", 'https://natours-az4s.onrender.com'], // Allow API requests
+      },
+    },
+  }),
+);
 
 // Dvelopment logger
 if (process.env.NODE_ENV === 'development') {
