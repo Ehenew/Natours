@@ -26,7 +26,7 @@ Natours is a full-stack web application that allows users to explore and book ex
 - **JWT Authentication** (secure login system)
 - **Stripe & Chapa** (payment gateways)
 - **Multer** (for image uploads)
-- **SendGrid** (for email notification)
+- **Mailtrap & SendGrid** (for email notification)
 
 ## 📂 Project Structure
 ```
@@ -86,13 +86,24 @@ CHAPA_SECRET_KEY=chapa-secret-key
 ```
 
 ### 4️⃣ Run the Application
+- **Start the server in development mode:**
 ```sh
 npm start
 ```
+This command starts the server using `nodemon`, which watches for file changes and restarts automatically.
 
+- **Start the server in production mode:**
+```sh
+npm run start:prod
+```
+This command runs the app with optimized performance settings for production.
+
+- **Run JavaScript bundling with Parcel:**
 ```sh
 npm run watch:js
 ```
+This command watches for changes in JavaScript files and bundles them using Parcel.
+
 The app will be available at **http://localhost:8000**
 
 ## 🔥 API Endpoints
@@ -111,7 +122,7 @@ The app will be available at **http://localhost:8000**
 This project is open-source and available under the **MIT License**.
 
 ## 👨‍💻 Author
-- **Ehenew** ([@NotYetSettled](https://github.com/Ehenew))
+- **Ehenew** ([@NotYetSettled](https://www.linkedin.com/in/ehenew-amogne-a5b2642b4/))
 
 ---
 ### 🌟 If you like this project, don't forget to **star** the repository!
