@@ -7,6 +7,7 @@ import { updateSettings } from './updateSettings';
 // import { bookTour } from './stripe';
 import { bookTour } from './payment';
 import { forgotPassword, resetPassword } from './forgotPassword';
+import { showAlert } from './alerts';
 
 // DOM ELEMENTS
 const mapBox = document.getElementById('map');
@@ -179,3 +180,6 @@ if (resetPasswordForm) resetBtn.addEventListener('click', async e => {
   document.getElementById('passwordConfirm').value = '';
   e.target.textContent = 'Update Password'
 }) 
+
+const alertMessage = document.querySelector('body').dataset.alertMessage;
+if (alertMessage) showAlert('success', alertMessage, 15);

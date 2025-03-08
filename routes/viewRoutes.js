@@ -5,6 +5,9 @@ const bookingController = require('../controllers/bookingController');
 
 const router = express.Router();
 
+// Adding the alert message to all of the viewRoute
+router.use(viewsController.alerts);
+
 // I will change this one once i deployed the page
 router.get(
   '/',
@@ -26,11 +29,15 @@ router.get(
   authController.isLoggedin,
   viewsController.resetPassword,
 );
-
 router.get('/notify', authController.isLoggedin, viewsController.notify);
 
 router.get('/me', authController.protect, viewsController.getAccount);
-router.get('/my-tours', authController.protect, viewsController.getMyTours);
+router.get(
+  '/my-tours',
+  // bookingController.createBookingCheckout,
+  authController.protect,
+  viewsController.getMyTours,
+);
 router.post(
   '/submit-user-data',
   authController.protect,

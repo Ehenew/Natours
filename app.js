@@ -21,6 +21,7 @@ const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
+const bookingController = require('./controllers/bookingController');
 const viewRouter = require('./routes/viewRoutes');
 
 const globalErrorHandler = require('./controllers/errorController');
@@ -58,17 +59,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use(helmet());
 
 // Configure CSP in helmet
-app.use(
-  helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", 'https://apis.google.com'],
-        connectSrc: ["'self'", 'https://natours-az4s.onrender.com'], // Allow API requests
-      },
-    },
-  }),
-);
+// app.use(
+//   helmet({
+//     contentSecurityPolicy: {
+//       directives: {
+//         defaultSrc: ["'self'"],
+//         scriptSrc: ["'self'", 'https://apis.google.com'],
+//         connectSrc: ["'self'", 'https://natours-az4s.onrender.com'], // Allow API requests
+//       },
+//     },
+//   }),
+// );
 
 // Dvelopment logger
 if (process.env.NODE_ENV === 'development') {
@@ -82,6 +83,14 @@ const limiter = rateLimiter({
   message: 'Too many request from this IP, please try again in an hour!',
 });
 app.use('/api', limiter);
+
+app.post(
+  '/webhook-checkout',
+  express.raw({
+    type: 'application/json',
+  }),
+  bookingController.webhookCheckout,
+); // before the body has been parsed to json, because the stripe function that is going to use the body from the stripe webhook, needs this body in a row form as a stream no as json
 
 // Body parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
