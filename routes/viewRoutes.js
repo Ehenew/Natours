@@ -8,13 +8,7 @@ const router = express.Router();
 // Adding the alert message to all of the viewRoute
 router.use(viewsController.alerts);
 
-// I will change this one once i deployed the page
-router.get(
-  '/',
-  bookingController.createBookingCheckout,
-  authController.isLoggedin,
-  viewsController.getOverview,
-);
+router.get('/', authController.isLoggedin, viewsController.getOverview);
 router.get('/tour/:slug', authController.isLoggedin, viewsController.getTour);
 
 router.get('/login', authController.isLoggedin, viewsController.getLoginForm);
