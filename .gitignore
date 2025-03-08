@@ -2,6 +2,6 @@
 node_modules/
 *.env
 *.log
-# npm package lock file
-package-lock.json
+.cache/
+
 

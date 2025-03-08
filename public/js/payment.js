@@ -11,7 +11,7 @@ export const bookTour = async (tourId, paymentMethod) => {
     // Get checkout session from API with the selected payment method
     const session = await axios({
       method: 'GET',
-      url: `http://127.0.0.1:8000/api/v1/bookings/checkout-session/${tourId}`,
+      url: `/api/v1/bookings/checkout-session/${tourId}`,
       params: { paymentMethod }, // Send payment method to API
     });
 

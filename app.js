@@ -12,6 +12,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 
 const { whitelist } = require('validator');
 const AppError = require('./utils/appError');
@@ -35,29 +36,11 @@ app.set('views', path.join(__dirname, 'views'));
 
 // GLOBAL MIDDLEWARES
 // Serving static files - for files only not for a directory
-app.use(express.static(path.join(__dirname, 'public'))); 
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Set security HTTP headers
 // Commented out to fix the issue with leaflet library
 // app.use(helmet());
-// app.use(
-//   helmet({
-//     contentSecurityPolicy: {
-//       directives: {
-//         defaultSrc: ["'self'"],
-//         scriptSrc: ["'self'", 'https://unpkg.com'],
-//         styleSrc: [
-//           "'self'",
-//           'https://unpkg.com',
-//           'https://fonts.googleapis.com',
-//         ],
-//         fontSrc: ["'self'", 'https://fonts.gstatic.com'],
-//         imgSrc: ["'self'", 'data:', 'https://unpkg.com'],
-//         connectSrc: ["'self'", 'https://unpkg.com'],
-//       },
-//     },
-//   }),
-// );
 
 // Dvelopment logger
 if (process.env.NODE_ENV === 'development') {
@@ -96,6 +79,9 @@ app.use(
     ],
   }),
 );
+
+// for compressing texts
+app.use(compression());
 
 // Test middleware
 app.use((req, res, next) => {
