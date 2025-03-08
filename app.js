@@ -13,6 +13,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
+const cors = require('cors');
 
 const { whitelist } = require('validator');
 const AppError = require('./utils/appError');
@@ -35,6 +36,18 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 // GLOBAL MIDDLEWARES
+// Implement cors
+app.use(cors()); // only for simple requests like get and post
+// Acess Control Allow Origin
+// api.natours.com(back-end), natours.com(front-end)
+// app.use(cors({
+//   origin:'https://www.natours.com', allowing natours.com to access api.natours.com
+// }))
+
+// for non-simple requests like patch, put, update, delete and auth, the browser automatically issue a brief like phase before the real request happens, in order figure out if the actual request is safe to send and so the browser first does an options request
+app.options('*', cors()); // for all routes
+// app.options('/api/v1/tours/:id', cors()); // for specific route
+
 // Serving static files - for files only not for a directory
 app.use(express.static(path.join(__dirname, 'public')));
 

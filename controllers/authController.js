@@ -19,7 +19,6 @@ const createSendToken = (user, statusCode, res) => {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000, // to milliseconds
     ),
-    // secure: true, // the cookie will only be sent over secure https connection
     httpOnly: true, // the cookie cannot be accessed or modified by the browser, it only recieves, stores and then send it automatically
   };
 
