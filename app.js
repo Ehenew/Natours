@@ -90,7 +90,7 @@ app.post(
     type: 'application/json',
   }),
   bookingController.webhookCheckout,
-); // before the body has been parsed to json, because the stripe function that is going to use the body from the stripe webhook, needs this body in a row form as a stream no as json
+); //! before the body has been parsed to json, because the stripe function that is going to use the body from the stripe webhook, needs this body in a row form as a stream no as json
 
 // Body parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
