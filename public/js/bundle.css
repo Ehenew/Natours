@@ -1,0 +1,231 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&display=swap");
+#alerts-container {
+  --wall-gap: 16px;
+  --radius: .5em;
+  --text-light: #000000;
+  --text-dark: #FFFFFF;
+  --bg-light: #FFFFFF;
+  --bg-dark: #444444;
+  --error-light: #FF3737;
+  --error-dark: #E65858;
+  --warning-light: #FF9900;
+  --warning-dark: #FD9C41;
+  --success-light: #04C800;
+  --success-dark: #5FD95D;
+  --alert-light: #4690FF;
+  --alert-dark: #6C8FE8;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: var(--wall-gap);
+  display: grid;
+  grid-template-areas: "stack";
+  place-items: center;
+  z-index: 999999;
+  font-family: "Quicksand", sans-serif;
+  pointer-events: none;
+}
+#alerts-container * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#alerts-container {
+  pointer-events: none;
+}
+#alerts-container .alerts {
+  font-size: inherit;
+  pointer-events: all;
+  grid-area: stack;
+  background: var(--bg-light);
+  color: var(--text-light);
+  padding: 0.666em;
+  border-radius: var(--radius);
+  box-shadow: 0px 9px 11px -7px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.666em;
+  translate: 0 -100%;
+  opacity: 0;
+  transition: opacity 300ms, translate 300ms, scale 300ms;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+}
+#alerts-container .alerts .alerts-icon {
+  width: 1.333em;
+  height: 1.333em;
+}
+#alerts-container .alerts .alerts-icon svg {
+  width: 100%;
+  height: 100%;
+}
+#alerts-container .alerts .alerts-text {
+  font-weight: 400;
+  font-size: inherit;
+  width: -moz-fit-content;
+  width: fit-content;
+  min-width: 225px;
+}
+#alerts-container .alerts .alerts-countdown-icon {
+  width: 1.333em;
+  height: 1.333em;
+}
+#alerts-container .alerts .alerts-countdown-icon svg {
+  width: 100%;
+  height: 100%;
+  rotate: -90deg;
+  animation-duration: inherit;
+}
+#alerts-container .alerts .alerts-countdown-icon svg path {
+  stroke: var(--text-light);
+}
+#alerts-container .alerts .alerts-countdown-icon svg .progressCircle {
+  stroke-dasharray: 75.36;
+  animation: countdown 3000ms forwards linear;
+  animation-duration: inherit;
+}
+@keyframes countdown {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: 75.36;
+  }
+}
+#alerts-container .alerts .alerts-close-icon {
+  width: 1.333em;
+  height: 1.333em;
+  position: relative;
+  cursor: pointer;
+}
+#alerts-container .alerts .alerts-close-icon svg {
+  width: 100%;
+  height: 100%;
+}
+#alerts-container .alerts .alerts-close-icon svg path {
+  stroke: var(--text-light);
+}
+#alerts-container .alerts .alerts-close-icon::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: 0;
+  height: 0;
+  background: var(--text-light);
+  border-radius: 50%;
+  opacity: 0.1;
+  transition: width 200ms, height 200ms;
+}
+#alerts-container .alerts .alerts-close-icon:hover::before {
+  width: 110%;
+  height: 110%;
+}
+#alerts-container .alerts.error .alerts-icon svg path {
+  fill: var(--error-light);
+}
+#alerts-container .alerts.warning .alerts-icon svg path {
+  fill: var(--warning-light);
+}
+#alerts-container .alerts.success .alerts-icon svg path {
+  fill: var(--success-light);
+}
+#alerts-container .alerts.alert .alerts-icon svg path {
+  fill: var(--alert-light);
+}
+
+#alerts-container.dark .alerts {
+  background: var(--bg-dark);
+  color: var(--text-dark);
+}
+#alerts-container.dark .alerts .alerts-countdown-icon svg path {
+  stroke: var(--text-dark);
+}
+#alerts-container.dark .alerts .alerts-close-icon svg path {
+  stroke: var(--text-dark);
+}
+#alerts-container.dark .alerts .alerts-close-icon::before {
+  background: var(--text-dark);
+}
+#alerts-container.dark .alerts.error .alerts-icon svg path {
+  fill: var(--error-dark);
+}
+#alerts-container.dark .alerts.warning .alerts-icon svg path {
+  fill: var(--warning-dark);
+}
+#alerts-container.dark .alerts.success .alerts-icon svg path {
+  fill: var(--success-dark);
+}
+#alerts-container.dark .alerts.alert .alerts-icon svg path {
+  fill: var(--alert-dark);
+}
+
+#alerts-container.hideCountdown .alerts {
+  padding-right: 0.8em;
+}
+
+#alerts-container.top-center {
+  left: 0;
+  right: 0;
+}
+
+#alerts-container.top-right {
+  left: unset;
+  right: 0;
+}
+
+#alerts-container.bottom-left {
+  top: unset;
+  bottom: 0;
+  left: 0;
+}
+
+#alerts-container.bottom-center {
+  top: unset;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+#alerts-container.bottom-right {
+  left: unset;
+  top: unset;
+  bottom: 0;
+  right: 0;
+}
+
+#alerts-container.bottom-right .alerts,
+#alerts-container.bottom-center .alerts,
+#alerts-container.bottom-left .alerts {
+  translate: 0 200%;
+}
+
+#alerts-container .alerts.show {
+  opacity: 1;
+  translate: 0 0;
+  transition: opacity 300ms, translate 300ms, scale 300ms;
+}
+
+@media screen and (max-width: 500px) {
+  #alerts-container {
+    right: 0;
+    left: 0;
+  }
+  #alerts-container .alerts {
+    width: 100%;
+    max-width: unset;
+  }
+  #alerts-container .alerts .alerts-text {
+    width: 100%;
+    min-width: unset;
+  }
+  #alerts-container.top-left, #alerts-container.top-center, #alerts-container.top-right, #alerts-container.bottom-right, #alerts-container.bottom-center, #alerts-container.bottom-left {
+    right: 0;
+    left: 0;
+  }
+}
+
+/*# sourceMappingURL=/bundle.css.map */
