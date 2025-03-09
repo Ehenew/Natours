@@ -29,7 +29,7 @@ const globalErrorHandler = require('./controllers/errorController');
 // Start express app
 const app = express();
 
-app.enable('trust proxy');
+// app.enable('trust proxy');
 
 // Setting pug as a view engine for server-side rendering
 app.set('view engine', 'pug');
