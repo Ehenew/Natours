@@ -1,6 +1,6 @@
 # Natours - A Tour Booking Application
 
-## 🚀 Visit the Deployed Page
+## 🌍 Visit the Deployed Page
 
 [![Go to Natours](https://img.shields.io/badge/Go_to_Natours-Click_here-brightgreen)](https://natours-az4s.onrender.com/)
 
