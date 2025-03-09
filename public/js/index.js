@@ -181,5 +181,5 @@ if (resetPasswordForm) resetBtn.addEventListener('click', async e => {
   e.target.textContent = 'Update Password'
 }) 
 
-const alertMessage = document.querySelector('body').dataset.alertMessage;
+const alertMessage = document.querySelector('body').dataset.alert;
 if (alertMessage) showAlert('success', alertMessage, 15);

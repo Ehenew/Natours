@@ -44,7 +44,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
               name: `${tour.name} Tour`,
               description: tour.summary,
               images: [
-                `${req.protocol}://${req.get('host')}/${tour.imageCover}`,
+                `${req.protocol}://${req.get('host')}/img/tours/${tour.imageCover}`,
               ],
             },
             unit_amount: tour.price * 100, // Convert price to cents
@@ -124,46 +124,27 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 // });
 
 const createBookingCheckout = async (session) => {
-  try {
-    console.log('🔍 Creating booking for session:', session.id);
+  const tour = session.client_reference_id;
+  const user = (await User.findOne({ email: session.customer_email })).id;
 
-    const tour = session.client_reference_id;
-    console.log('📌 Tour ID:', tour);
+  // Fetch line items
+  const lineItems = await stripe.checkout.sessions.listLineItems(session.id);
+  const price = lineItems.data[0] ? lineItems.data[0].amount_total / 100 : 0;
 
-    const user = await User.findOne({ email: session.customer_email });
-    if (!user) {
-      console.error(`❌ No user found with email: ${session.customer_email}`);
-      return;
-    }
-    console.log('✅ User Found:', user.id);
-
-    // Fetch line items correctly
-    const lineItems = await stripe.checkout.sessions.listLineItems(session.id);
-    const price = lineItems.data[0] ? lineItems.data[0].amount_total / 100 : 0;
-
-    console.log(`💰 Booking price: ${price}`);
-
-    await Booking.create({ tour, user: user.id, price });
-    console.log('✅ Booking Created Successfully!');
-  } catch (err) {
-    console.error('❌ Error Creating Booking:', err);
-  }
+  await Booking.create({ tour, user, price });
 };
 
 exports.webhookCheckout = async (req, res, next) => {
-  console.log('🔥 Webhook hit!');
   const signature = req.headers['stripe-signature'];
-  let event;
 
+  let event;
   try {
     event = stripe.webhooks.constructEvent(
       req.body,
       signature,
       process.env.STRIPE_WEBHOOK_SECRET,
     );
-    console.log('✅ Webhook Event Received:', event.type);
   } catch (err) {
-    console.error('❌ Webhook Signature Verification Failed:', err.message);
     return res.status(400).send(`Webhook error: ${err.message}`);
   }
 
