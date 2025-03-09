@@ -1,5 +1,9 @@
 # Natours - A Tour Booking Application
 
+## 🚀 Visit the Deployed Page
+
+[![Go to Natours](https://img.shields.io/badge/Go_to_Natours-Click_here-brightgreen)](https://natours-az4s.onrender.com/)
+
 ## 📌 Overview
 Natours is a full-stack web application that allows users to explore and book exciting tours worldwide. The project includes both a **frontend with server-side rendering using Pug** and a **backend built with Node.js, Express, and MongoDB**. Users can sign up, log in, browse available tours, view detailed tour information, and securely book tours using **Stripe and Chapa** payment integrations. Additionally, users can update their profiles, including their name, email, password, and profile photo.
 
@@ -88,13 +92,13 @@ CHAPA_SECRET_KEY=chapa-secret-key
 ### 4️⃣ Run the Application
 - **Start the server in development mode:**
 ```sh
-npm start
+npm run dev
 ```
 This command starts the server using `nodemon`, which watches for file changes and restarts automatically.
 
 - **Start the server in production mode:**
 ```sh
-npm run start:prod
+npm start
 ```
 This command runs the app with optimized performance settings for production.
 
